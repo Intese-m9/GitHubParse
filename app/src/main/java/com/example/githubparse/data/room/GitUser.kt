@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 data class GitUser(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
-
     @ColumnInfo(name = "repo")
     var repo: String
 )

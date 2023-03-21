@@ -13,7 +13,7 @@ class Splash : AppCompatActivity() {
         setContentView(R.layout.activity_spash)
         activityScope.launch {
             delay(3000)
-            var intent = Intent(this@Splash, GitHubActivity::class.java)
+            val intent = Intent(this@Splash, GitHubActivity::class.java)
             startActivity(intent)
             finish()
         }

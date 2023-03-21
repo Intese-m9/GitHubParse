@@ -9,12 +9,6 @@ import androidx.room.Update
 interface GitDao {
     @Insert
     suspend fun insertRepo(repo: GitUser)
-
     @Query("SELECT * FROM repository_table")
     fun getAllRepos(): List<GitUser>
-
-    @Update
-    suspend fun updateRepo(repo: GitUser)
-
-
 }

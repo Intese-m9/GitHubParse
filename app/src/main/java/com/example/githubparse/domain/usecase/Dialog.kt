@@ -18,9 +18,7 @@ class Dialog {
     val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
     val downloadGitBrowser by lazy { DownloadGitStorage() }//Use_Case загрузка
     private lateinit var gitDao: GitDao
-
     fun openDialog(context: Context, itemPositionName:String,itemPositionFullName:String ){
-
         val db = Room.databaseBuilder(
             context,
             GitDatabase::class.java, "repository_database"
@@ -33,21 +31,19 @@ class Dialog {
         builder.background = ColorDrawable(
             Color.parseColor("#FEFEFA")
         )
-        builder.setPositiveButton("Download"){ dialog,which->
+        builder.setPositiveButton("Download"){ _, _ ->
             //действие по клику
             downloadGitBrowser.execute(context, itemPositionFullName)
             CoroutineScope(Dispatchers.Default).launch {
                 gitDao.insertRepo(GitUser(0,itemPositionFullName))
             }
-
         }
-
         val drawablePositive = ContextCompat.getDrawable(
             context, R.drawable.ic_baseline_cloud_download_24)
         builder.setPositiveButtonIcon(
             drawablePositive
         )
-        builder.setNegativeButton("Открыть в браузере"){dialog,which->
+        builder.setNegativeButton("Открыть в браузере"){ _, _ ->
             openGitBrowser.execute(context,itemPositionFullName)
         }
         val drawableNegative = ContextCompat.getDrawable(
@@ -55,7 +51,7 @@ class Dialog {
         builder.setNegativeButtonIcon(
             drawableNegative
         )
-        builder.setNeutralButton("Отмена"){dialog,which->
+        builder.setNeutralButton("Отмена"){ dialog, _ ->
             // do something on neutral button click
             dialog.cancel()
         }
