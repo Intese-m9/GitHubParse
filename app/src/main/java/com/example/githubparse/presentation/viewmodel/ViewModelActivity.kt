@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.githubparse.data.repository.Repository
 import com.example.githubparse.data.room.GitUser
 import com.example.githubparse.domain.models.getlist.GitHubList
 import com.example.githubparse.domain.usecase.GetDataBaseGitUseCase
