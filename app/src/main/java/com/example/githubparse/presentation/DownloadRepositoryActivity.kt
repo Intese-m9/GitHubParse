@@ -1,14 +1,16 @@
 package com.example.githubparse.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.example.githubparse.R
 import com.example.githubparse.domain.adapter.adapterdownload.DownloadAdapter
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_download_repository.*
+import java.text.SimpleDateFormat
+import java.util.*
+
 @AndroidEntryPoint
 class DownloadRepositoryActivity : AppCompatActivity() {
     val adapter = DownloadAdapter()
@@ -22,6 +24,10 @@ class DownloadRepositoryActivity : AppCompatActivity() {
             list.let {
                 adapter.setList(it)
             }
+        }
+        vm.getData()
+        vm.dataList.observe(this){ list ->
+          currentData.text = list.toString()
         }
     }
 }

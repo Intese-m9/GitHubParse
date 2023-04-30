@@ -15,6 +15,5 @@ class DataModule {
     fun provideRepo():RepositoryNet{
         return RepositoryNet()
     }
-
 }
 

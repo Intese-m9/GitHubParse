@@ -2,6 +2,7 @@ package com.example.githubparse.di
 
 import com.example.githubparse.domain.usecase.Dialog
 import com.example.githubparse.domain.usecase.DownloadGitStorage
+import com.example.githubparse.domain.usecase.GetCurrentDate
 import com.example.githubparse.domain.usecase.OpenGitBrowser
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,8 @@ class DomainModel {
     fun provideDialog(): Dialog {
         return Dialog()
     }
-
-
+    @Provides
+    fun getCurrentDate(): GetCurrentDate{
+        return GetCurrentDate()
+    }
 }

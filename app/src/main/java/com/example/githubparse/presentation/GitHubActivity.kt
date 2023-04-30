@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_git_hub.*
 class GitHubActivity : AppCompatActivity() {
     val adapter = GitAdapter(this, dialog = Dialog())
     private val vm: ViewModelActivity by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_git_hub)

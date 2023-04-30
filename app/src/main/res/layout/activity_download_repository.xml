@@ -31,4 +31,32 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:itemCount="5"
         tools:listitem="@layout/item_list" />
+
+    <TextView
+        android:id="@+id/currentData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Загрузки за текущую дату:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_db" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_data_db"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentData"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_list" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
