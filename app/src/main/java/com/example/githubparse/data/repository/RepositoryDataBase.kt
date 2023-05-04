@@ -14,4 +14,5 @@ class RepositoryDataBase @Inject constructor() {
         gitDao = db.GitDao()//получили экземпляр бд
         return gitDao.getAllRepos()
     }
+
 }

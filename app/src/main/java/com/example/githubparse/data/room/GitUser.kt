@@ -9,5 +9,7 @@ data class GitUser(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     @ColumnInfo(name = "repo")
-    var repo: String
+    var repo: String,
+    @ColumnInfo(name = "data")
+    var data: String
 )

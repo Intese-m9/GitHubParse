@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 class Dialog {
     val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
     val downloadGitBrowser by lazy { DownloadGitStorage() }//Use_Case загрузка
+    val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
     private lateinit var gitDao: GitDao
     fun openDialog(context: Context, itemPositionName:String,itemPositionFullName:String ){
         val db = Room.databaseBuilder(
@@ -34,8 +35,9 @@ class Dialog {
         builder.setPositiveButton("Download"){ _, _ ->
             //действие по клику
             downloadGitBrowser.execute(context, itemPositionFullName)
+            val data = dataGetString.getCurrentDate()
             CoroutineScope(Dispatchers.Default).launch {
-                gitDao.insertRepo(GitUser(0,itemPositionFullName))
+                gitDao.insertRepo(GitUser(0,itemPositionFullName,data))
             }
         }
         val drawablePositive = ContextCompat.getDrawable(
