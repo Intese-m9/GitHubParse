@@ -21,16 +21,21 @@ class DownloadRepositoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_download_repository)
         rv_db.adapter = adapter
+        rv_data_db.adapter = adapterData
         vm.getDownloadList(applicationContext)
         vm.downloadList.observe(this) { list ->
             list.let {
                 adapter.setList(it)
-                adapterData.setList(it)
             }
         }
         vm.getData()
         vm.dataList.observe(this){ list ->
           currentData.text = list.toString()
+        }
+        vm.downloadList.observe(this){ list ->
+            list.let {
+                adapterData.setList(it)
+            }
         }
 
     }

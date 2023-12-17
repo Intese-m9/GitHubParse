@@ -15,9 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class Dialog {
-    val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
-    val downloadGitBrowser by lazy { DownloadGitStorage() }//Use_Case загрузка
-    val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
+    private val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
+    private val downloadGitBrowser by lazy { DownloadGitStorage() }//Use_Case загрузка
+    private val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
     private lateinit var gitDao: GitDao
     fun openDialog(context: Context, itemPositionName:String,itemPositionFullName:String ){
         val db = Room.databaseBuilder(
