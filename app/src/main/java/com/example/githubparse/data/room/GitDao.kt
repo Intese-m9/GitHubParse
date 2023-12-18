@@ -11,5 +11,4 @@ interface GitDao {
     suspend fun insertRepo(repo: GitUser)
     @Query("SELECT * FROM repository_table")
     fun getAllRepos(): List<GitUser>
-    // TODO: добавить сюда реализацию вывода по текущей дате. В селект добавить условие выборки за текущий день
 }

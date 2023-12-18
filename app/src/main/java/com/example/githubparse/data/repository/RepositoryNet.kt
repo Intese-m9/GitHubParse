@@ -11,18 +11,21 @@ import javax.inject.Inject
 class RepositoryNet @Inject constructor() {
     private val _gitResponseLiveData = MutableLiveData<ResponseResult<GitHubList>>()
     val gitResponseLiveData: LiveData<ResponseResult<GitHubList>>
-    get() = _gitResponseLiveData
-    suspend fun getGitList(userName: String): Response<GitHubList>{
+        get() = _gitResponseLiveData
+
+    suspend fun getGitList(userName: String): Response<GitHubList> {
         _gitResponseLiveData.postValue(ResponseResult.Loading())
         val response = RetrofitHelper.api.getGitList(userName)
         when {
             response.isSuccessful && response.body() != null -> {
                 _gitResponseLiveData.postValue(ResponseResult.Success(response.body()!!))
             }
+
             response.errorBody() != null -> {
                 _gitResponseLiveData.postValue(ResponseResult.Error("Ошибка"))
 
             }
+
             else -> {
                 _gitResponseLiveData.postValue(ResponseResult.Error("Ошибка"))
             }

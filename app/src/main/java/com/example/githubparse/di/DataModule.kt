@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class DataModule {
     @Provides
     @Singleton
-    fun provideRepo():RepositoryNet{
+    fun provideRepo(): RepositoryNet {
         return RepositoryNet()
     }
 }
