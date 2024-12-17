@@ -21,7 +21,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/search"
-                android:layout_width="269dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_toStartOf="@+id/searchButton"
                 android:hint="Введите пользователя git"
@@ -69,4 +69,14 @@
         app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewAnimation"
+        android:layout_width="206dp"
+        android:layout_height="204dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_git"
+        app:srcCompat = "@drawable/ic_android_black_24dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

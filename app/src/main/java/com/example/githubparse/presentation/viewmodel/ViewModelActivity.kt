@@ -27,9 +27,9 @@ class ViewModelActivity @Inject constructor(
     private val getCurrentDate: GetCurrentDate,
     private val repositoryNet: RepositoryNet
 ) : ViewModel() {
-    var gitHubList: MutableLiveData<Response<GitHubList>> = MutableLiveData()//переменная списка
-    var downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
-    var dataList: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
+    val gitHubList: MutableLiveData<Response<GitHubList>> = MutableLiveData()//переменная списка
+     val downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
+     val dataList: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
     val userResponseLiveData: LiveData<ResponseResult<GitHubList>>
         get() = repositoryNet.gitResponseLiveData
 
@@ -40,7 +40,7 @@ class ViewModelActivity @Inject constructor(
     }
 
     fun getDownloadList(context: Context) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             // downloadList.value = repo.executeDatabase(context)
             // downloadList.postValue(repo.executeDatabase(context))
             downloadList.postValue(getDataBaseGitUseCase.getDownloadListGit(context))
