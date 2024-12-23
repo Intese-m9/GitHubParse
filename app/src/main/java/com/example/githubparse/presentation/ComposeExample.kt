@@ -62,7 +62,7 @@ fun NewsStory() {
                 style = MaterialTheme.typography.titleMedium
             )
             Text(
-                text = "89277206147",
+                text = "8927722333",
             )
             Text(
                 modifier = Modifier
