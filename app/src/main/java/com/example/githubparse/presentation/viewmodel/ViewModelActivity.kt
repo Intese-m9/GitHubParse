@@ -16,6 +16,8 @@ import com.example.githubparse.domain.usecase.GetDataBaseGitUseCase
 import com.example.githubparse.domain.usecase.GetListGitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -30,6 +32,8 @@ class ViewModelActivity @Inject constructor(
     val gitHubList: MutableLiveData<Response<GitHubList>> = MutableLiveData()//переменная списка
      val downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
      val dataList: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
+
+
     val userResponseLiveData: LiveData<ResponseResult<GitHubList>>
         get() = repositoryNet.gitResponseLiveData
 

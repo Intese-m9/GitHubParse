@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GitHubParse">
         <activity
+            android:name=".presentation.ComposeExample"
+            android:exported="false"
+            android:label="@string/title_activity_compose_example"
+            android:theme="@style/Theme.GitHubParse" />
+        <activity
             android:name=".presentation.CallbackActivity"
             android:exported="false" />
         <activity

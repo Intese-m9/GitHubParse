@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.githubparse.R
 import com.example.githubparse.checkerror.ResponseResult
@@ -14,6 +17,7 @@ import com.example.githubparse.domain.usecase.Dialog
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class GitHubActivity : AppCompatActivity() {
@@ -37,6 +41,12 @@ class GitHubActivity : AppCompatActivity() {
         }
         val animateDrawable = AnimatedVectorDrawableCompat.create(this, R.drawable.animated_vector)
         binding.imageViewAnimation.setImageDrawable(animateDrawable)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.DESTROYED){
+
+            }
+        }
         vm.userResponseLiveData.observe(this) {
             when (it) {
                 is ResponseResult.Success -> {
@@ -66,7 +76,7 @@ class GitHubActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.download.setOnClickListener {
-            val intent = Intent(this,CallbackActivity::class.java)
+            val intent = Intent(this,ComposeExample::class.java)
             startActivity(intent)
         }
     }
