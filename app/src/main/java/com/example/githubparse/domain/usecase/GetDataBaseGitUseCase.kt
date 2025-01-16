@@ -2,11 +2,12 @@ package com.example.githubparse.domain.usecase
 
 import android.content.Context
 import com.example.githubparse.data.repository.RepositoryDataBase
+import com.example.githubparse.data.repositoryImpl.RepositoryDataBaseImpl
 import com.example.githubparse.data.room.GitUser
 import javax.inject.Inject
 
-class GetDataBaseGitUseCase@Inject constructor(private val apiRepositoryDataBase: RepositoryDataBase) {
-     fun getDownloadListGit(context: Context): List<GitUser>{
-         return apiRepositoryDataBase.executeDatabase(context)
-     }
+class GetDataBaseGitUseCase @Inject constructor(private val apiRepositoryDataBase: RepositoryDataBase) {
+    fun getDownloadListGit(context: Context): List<GitUser> {
+        return apiRepositoryDataBase.executeDataBase(context)
+    }
 }
