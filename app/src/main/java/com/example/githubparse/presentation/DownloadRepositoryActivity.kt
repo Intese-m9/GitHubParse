@@ -27,8 +27,8 @@ class DownloadRepositoryActivity : AppCompatActivity() {
                 adapter.setList(it)
             }
         }
-        vm.getData()
-        vm.dataList.observe(this){ list ->
+        vm.getCalendarData()
+        vm.calendarData.observe(this){ list ->
             binding.currentData.text = list.toString()
         }
         vm.downloadList.observe(this){ list ->

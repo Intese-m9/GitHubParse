@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubparse.checkerror.ResponseResult
-import com.example.githubparse.data.repositoryImpl.RepositoryNetImpl
 import com.example.githubparse.data.room.GitUser
 import com.example.githubparse.domain.models.getlist.GitHubList
 import com.example.githubparse.domain.usecase.GetCurrentDate
@@ -15,41 +14,48 @@ import com.example.githubparse.domain.usecase.GetListGitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelActivity @Inject constructor(
     private val getListGitUseCase: GetListGitUseCase,
     private val getDataBaseGitUseCase: GetDataBaseGitUseCase,
-    private val getCurrentDate: GetCurrentDate,
-    private val repositoryNet: RepositoryNetImpl
+    private val getCurrentDate: GetCurrentDate
 ) : ViewModel() {
-    val gitHubList: MutableLiveData<Response<GitHubList>> = MutableLiveData()//переменная списка
-     val downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
-     val dataList: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
+    // Объявляем MutableLiveData
+     private val _gitHubList: MutableLiveData<ResponseResult<GitHubList>> = MutableLiveData()//переменная списка
+     private val _downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
+     private val _calendarData: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
+    // Публичный доступ для просмотра
+    val gitHubList: LiveData<ResponseResult<GitHubList>> get() = _gitHubList
+    val downloadList: LiveData<List<GitUser>> get() = _downloadList
+    val calendarData: LiveData<List<String>> get() = _calendarData
 
-
-    val userResponseLiveData: LiveData<ResponseResult<GitHubList>>
-        get() = repositoryNet.gitResponseLiveData
-
-    fun getList(result: String) {
+   fun loadGitHubList(result: String) {
         viewModelScope.launch {
-            gitHubList.value = getListGitUseCase.getGitHubList(result)
+            _gitHubList.postValue(ResponseResult.Loading())
+            try{
+                val response = getListGitUseCase.getGitHubList(result)
+                if (response.isSuccessful && response.body() != null){
+                    _gitHubList.postValue(ResponseResult.Success(response.body()!!))
+                } else {
+                    _gitHubList.postValue(ResponseResult.Error("Ошибка загрузки"))
+                }
+            }catch (e:Exception){
+                _gitHubList.postValue(ResponseResult.Error("${e.message}"))
+            }
         }
     }
 
-    fun getDownloadList(context: Context) {
-        viewModelScope.launch {
-            // downloadList.value = repo.executeDatabase(context)
-            // downloadList.postValue(repo.executeDatabase(context))
-            downloadList.postValue(getDataBaseGitUseCase.getDownloadListGit(context))
-        }
-    }
+  fun getDownloadList(context: Context) {
+      viewModelScope.launch {
+          _downloadList.postValue(getDataBaseGitUseCase.getDownloadListGit(context))
+      }
+  }
 
-    fun getData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            dataList.postValue(listOf(getCurrentDate.getCurrentDate()))
-        }
-    }
+  fun getCalendarData() {
+      viewModelScope.launch(Dispatchers.IO) {
+          _calendarData.postValue(listOf(getCurrentDate.getCurrentDate()))
+      }
+  }
 }
