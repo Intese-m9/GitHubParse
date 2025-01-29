@@ -22,8 +22,8 @@ class GitHubActivity : AppCompatActivity() {
         binding = ActivityGitHubBinding.inflate(layoutInflater)
         setContentView(binding.root)
         vm.gitHubList.observe(this) { list ->
-            list.data?.let {
-                adapter.setList(it)
+            list.data?.let { items ->
+                adapter.setList(items)
             }
         }
         binding.rvGit.adapter = adapter
