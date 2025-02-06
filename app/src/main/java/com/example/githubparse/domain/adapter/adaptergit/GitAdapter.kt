@@ -8,6 +8,7 @@ import com.example.githubparse.databinding.ItemListBinding
 import com.example.githubparse.domain.models.getlist.GitHubListItem
 import javax.inject.Inject
 
+
 class GitAdapter @Inject constructor(
     private val onItemClick:(GitHubListItem) -> Unit
 ) : RecyclerView.Adapter<GitAdapter.GitViewHolder>() {

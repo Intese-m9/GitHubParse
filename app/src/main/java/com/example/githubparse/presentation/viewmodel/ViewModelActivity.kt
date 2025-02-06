@@ -37,12 +37,12 @@ class ViewModelActivity @Inject constructor(
             try{
                 val response = getListGitUseCase.getGitHubList(result)
                 if (response.isSuccessful && response.body() != null){
-                    _gitHubList.postValue(ResponseResult.Success(response.body()!!))
+                    _gitHubList.postValue(ResponseResult.Success(data = response.body()!!))
                 } else {
-                    _gitHubList.postValue(ResponseResult.Error("Ошибка загрузки"))
+                    _gitHubList.postValue(ResponseResult.Error(message = response.message()))
                 }
             }catch (e:Exception){
-                _gitHubList.postValue(ResponseResult.Error("${e.message}"))
+                _gitHubList.postValue(ResponseResult.Error(message = "${e.message}"))
             }
         }
     }

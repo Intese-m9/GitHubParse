@@ -54,7 +54,7 @@ class ComposeExample : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaterialTheme {
-                ExampleError()
+                JuniorTestCodeToRefactor()
             }
         }
     }
