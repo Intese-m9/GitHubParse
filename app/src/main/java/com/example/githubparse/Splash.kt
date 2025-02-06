@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.githubparse.presentation.ComposeExample
 import com.example.githubparse.presentation.GitHubActivity
 import kotlinx.coroutines.*
 
@@ -23,7 +24,7 @@ class Splash : AppCompatActivity() {
         }
         activityScope.launch {
             delay(3000)
-            val intent = Intent(this@Splash, GitHubActivity::class.java)
+            val intent = Intent(this@Splash, ComposeExample::class.java)
             startActivity(intent)
             finish()
         }

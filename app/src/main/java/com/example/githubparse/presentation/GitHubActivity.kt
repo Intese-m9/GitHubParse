@@ -1,5 +1,6 @@
 package com.example.githubparse.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -50,7 +51,7 @@ class GitHubActivity : AppCompatActivity() {
     fun GitHubScreen(viewModel: ViewModelActivity, modifier: Modifier = Modifier) {
         Column(modifier = modifier.padding(10.dp)) {
             ToolbarComponent()
-            GitNameLazyColumn(viewModel = viewModel, modifier = modifier){name, fullName ->
+            GitNameLazyColumn(viewModel = viewModel, modifier = modifier) { name, fullName ->
                 Dialog().openDialog(context = this@GitHubActivity, name, fullName)
             }
         }
@@ -86,16 +87,17 @@ class GitHubActivity : AppCompatActivity() {
     fun GitNameLazyColumn(
         viewModel: ViewModelActivity,
         modifier: Modifier = Modifier,
-        onItemClick:(String, String) -> Unit) {
+        onItemClick: (String, String) -> Unit
+    ) {
         val responseResult = viewModel.gitHubList.observeAsState()
         when (val result = responseResult.value) {
             is ResponseResult.Success -> {
-              LazyColumn {
+                LazyColumn {
                     items(result.data ?: emptyList()) {
                         Text(
                             text = it.full_name,
                             modifier = modifier.clickable {
-                                onItemClick(it.name,it.full_name)
+                                onItemClick(it.name, it.full_name)
                             }
                         )
                     }
@@ -131,5 +133,8 @@ fun CenteredLoadingIndicator() {
         )
     }
 }
+
+
+
 
 
