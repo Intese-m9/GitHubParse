@@ -17,6 +17,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -97,7 +98,7 @@ fun GitNameLazyColumn(
     context: Context,
     onItemClick: (String, String) -> Unit
 ) {
-    val responseResult = viewModel.gitHubList.observeAsState()
+    val responseResult = viewModel.gitHubList.collectAsState()
     when (val result = responseResult.value) {
         is ResponseResult.Success -> {
             LazyColumn {
@@ -125,6 +126,7 @@ fun GitNameLazyColumn(
             Toast.makeText(context, "Данные отсутствуют", Toast.LENGTH_LONG).show()
         }
 
+        is ResponseResult.Null -> Toast.makeText(context,"Введите имя репозитория", Toast.LENGTH_LONG).show()
     }
 
 }

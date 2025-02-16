@@ -22,19 +22,19 @@ class DownloadRepositoryActivity : AppCompatActivity() {
         binding.rvDb.adapter = adapter
         binding.rvDataDb.adapter = adapterData
         vm.getDownloadList(applicationContext)
-        vm.downloadList.observe(this) { list ->
+        /*vm.downloadList.observe(this) { list ->
             list.let {
                 adapter.setList(it)
             }
-        }
+        }*/
         vm.getCalendarData()
-        vm.calendarData.observe(this) { list ->
+        /*vm.calendarData.observe(this) { list ->
             binding.currentData.text = list.toString()
-        }
+        }*//*
         vm.downloadList.observe(this) { list ->
             list.let {
                 adapterData.setList(it)
             }
-        }
+        }*/
     }
 }

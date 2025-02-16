@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +34,7 @@ fun DownloadRepositoryScreen(viewModel: ViewModelActivity, modifier: Modifier = 
     viewModel.getDownloadList(context)
     viewModel.getCalendarData()
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         AllListDownloads(viewModel = viewModel)
@@ -44,7 +45,7 @@ fun DownloadRepositoryScreen(viewModel: ViewModelActivity, modifier: Modifier = 
 
 @Composable
 fun AllListDownloads(viewModel: ViewModelActivity) {
-    val allListRepo = viewModel.downloadList.observeAsState()
+    val allListRepo = viewModel.downloadList.collectAsState()
     Column {
         Text(
             text = "Список загрузок",
@@ -64,8 +65,8 @@ fun AllListDownloads(viewModel: ViewModelActivity) {
 
 @Composable
 fun ListInCurrentDate(viewModel: ViewModelActivity) {
-    val currentDate = viewModel.calendarData.observeAsState()
-    val allListRepo = viewModel.downloadList.observeAsState()
+    val currentDate = viewModel.calendarData.collectAsState()
+    val allListRepo = viewModel.downloadList.collectAsState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ){

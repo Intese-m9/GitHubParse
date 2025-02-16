@@ -13,6 +13,8 @@ import com.example.githubparse.domain.usecase.GetDataBaseGitUseCase
 import com.example.githubparse.domain.usecase.GetListGitUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,39 +25,42 @@ class ViewModelActivity @Inject constructor(
     private val getCurrentDate: GetCurrentDate
 ) : ViewModel() {
     // Объявляем MutableLiveData
-     private val _gitHubList: MutableLiveData<ResponseResult<GitHubList>> = MutableLiveData()//переменная списка
-     private val _downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
-     private val _calendarData: MutableLiveData<String> = MutableLiveData()//переменная даты
-    // Публичный доступ для просмотра
-    val gitHubList: LiveData<ResponseResult<GitHubList>> get() = _gitHubList
-    val downloadList: LiveData<List<GitUser>> get() = _downloadList
-    val calendarData: LiveData<String> get() = _calendarData
+    private val _gitHubList: MutableStateFlow<ResponseResult<GitHubList>> =
+        MutableStateFlow(ResponseResult.Null())//переменная списка
+    private val _downloadList: MutableStateFlow<List<GitUser>> =
+        MutableStateFlow(emptyList())//переменная списка
+    private val _calendarData: MutableStateFlow<String> = MutableStateFlow("")//переменная даты
 
-   fun loadGitHubList(result: String) {
+    // Публичный доступ для просмотра
+    val gitHubList: StateFlow<ResponseResult<GitHubList>> get() = _gitHubList
+    val downloadList: StateFlow<List<GitUser>> get() = _downloadList
+    val calendarData: StateFlow<String> get() = _calendarData
+
+    fun loadGitHubList(result: String) {
         viewModelScope.launch {
-            _gitHubList.postValue(ResponseResult.Loading())
-            try{
+            _gitHubList.value = ResponseResult.Loading()
+            try {
                 val response = getListGitUseCase.getGitHubList(result)
-                if (response.isSuccessful && response.body() != null){
-                    _gitHubList.postValue(ResponseResult.Success(data = response.body()!!))
+                if (response.isSuccessful && response.body() != null) {
+                    _gitHubList.value = ResponseResult.Success(data = response.body()!!)
                 } else {
-                    _gitHubList.postValue(ResponseResult.Error(message = response.message()))
+                    _gitHubList.value = ResponseResult.Error(message = response.message())
                 }
-            }catch (e:Exception){
-                _gitHubList.postValue(ResponseResult.Error(message = "${e.message}"))
+            } catch (e: Exception) {
+                _gitHubList.value = ResponseResult.Error(message = "${e.message}")
             }
         }
     }
 
-  fun getDownloadList(context: Context) {
-      viewModelScope.launch(Dispatchers.IO) {
-          _downloadList.postValue(getDataBaseGitUseCase.getDownloadListGit(context))
-      }
-  }
+    fun getDownloadList(context: Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _downloadList.value = getDataBaseGitUseCase.getDownloadListGit(context = context)
+        }
+    }
 
-  fun getCalendarData() {
-      viewModelScope.launch(Dispatchers.Default) {
-          _calendarData.postValue(getCurrentDate.getCurrentDate())
-      }
-  }
+    fun getCalendarData() {
+        viewModelScope.launch(Dispatchers.Default) {
+            _calendarData.value = getCurrentDate.getCurrentDate()
+        }
+    }
 }
