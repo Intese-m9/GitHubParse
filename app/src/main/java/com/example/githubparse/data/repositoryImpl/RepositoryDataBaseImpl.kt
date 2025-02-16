@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class RepositoryDataBaseImpl @Inject constructor(): RepositoryDataBase {
     private lateinit var gitDao: GitDao
-    override fun executeDataBase(context: Context): List<GitUser> {
+    override suspend fun executeDataBase(context: Context): List<GitUser> {
         val db = Room.databaseBuilder(context, GitDatabase::class.java, "repository_database")
             .build()//создаем базу данных
         gitDao = db.GitDao()//получили экземпляр бд

@@ -22,13 +22,10 @@
             android:name=".presentation.CallbackActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.GitHubActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.DownloadRepositoryActivity"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

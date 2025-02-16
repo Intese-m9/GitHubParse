@@ -4,5 +4,5 @@ import android.content.Context
 import com.example.githubparse.data.room.GitUser
 
 interface RepositoryDataBase {
-    fun executeDataBase(context:Context):List<GitUser>
+   suspend fun executeDataBase(context:Context):List<GitUser>
 }

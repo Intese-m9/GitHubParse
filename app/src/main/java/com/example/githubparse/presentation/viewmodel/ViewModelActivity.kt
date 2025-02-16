@@ -25,11 +25,11 @@ class ViewModelActivity @Inject constructor(
     // Объявляем MutableLiveData
      private val _gitHubList: MutableLiveData<ResponseResult<GitHubList>> = MutableLiveData()//переменная списка
      private val _downloadList: MutableLiveData<List<GitUser>> = MutableLiveData()//переменная списка
-     private val _calendarData: MutableLiveData<List<String>> = MutableLiveData()//переменная даты
+     private val _calendarData: MutableLiveData<String> = MutableLiveData()//переменная даты
     // Публичный доступ для просмотра
     val gitHubList: LiveData<ResponseResult<GitHubList>> get() = _gitHubList
     val downloadList: LiveData<List<GitUser>> get() = _downloadList
-    val calendarData: LiveData<List<String>> get() = _calendarData
+    val calendarData: LiveData<String> get() = _calendarData
 
    fun loadGitHubList(result: String) {
         viewModelScope.launch {
@@ -48,14 +48,14 @@ class ViewModelActivity @Inject constructor(
     }
 
   fun getDownloadList(context: Context) {
-      viewModelScope.launch {
+      viewModelScope.launch(Dispatchers.IO) {
           _downloadList.postValue(getDataBaseGitUseCase.getDownloadListGit(context))
       }
   }
 
   fun getCalendarData() {
-      viewModelScope.launch(Dispatchers.IO) {
-          _calendarData.postValue(listOf(getCurrentDate.getCurrentDate()))
+      viewModelScope.launch(Dispatchers.Default) {
+          _calendarData.postValue(getCurrentDate.getCurrentDate())
       }
   }
 }

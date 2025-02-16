@@ -27,8 +27,6 @@ class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>(
             println(currentPosition)
             if (currentDate == currentPosition){
                 holder.binding.user.text = dataList[position].repo
-            }else{
-
             }
         }
     }

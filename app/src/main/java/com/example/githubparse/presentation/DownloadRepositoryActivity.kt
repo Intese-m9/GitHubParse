@@ -11,8 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DownloadRepositoryActivity : AppCompatActivity() {
-    val adapter = DownloadAdapter()
-    val adapterData = CalendarAdapter()
+    val adapter by lazy { DownloadAdapter() }
+    val adapterData by lazy { CalendarAdapter() }
     private lateinit var binding: ActivityDownloadRepositoryBinding
     private val vm: ViewModelActivity by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +28,10 @@ class DownloadRepositoryActivity : AppCompatActivity() {
             }
         }
         vm.getCalendarData()
-        vm.calendarData.observe(this){ list ->
+        vm.calendarData.observe(this) { list ->
             binding.currentData.text = list.toString()
         }
-        vm.downloadList.observe(this){ list ->
+        vm.downloadList.observe(this) { list ->
             list.let {
                 adapterData.setList(it)
             }
