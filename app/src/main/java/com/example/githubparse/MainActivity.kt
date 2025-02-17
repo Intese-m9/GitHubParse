@@ -5,14 +5,12 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.githubparse.presentation.screens.DownloadRepositoryScreen
 import com.example.githubparse.presentation.screens.GitHubScreen
 import com.example.githubparse.presentation.screens.SplashScreen
-import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
