@@ -8,7 +8,7 @@ import com.example.githubparse.domain.adapter.adaptercalendar.CalendarAdapter
 import com.example.githubparse.domain.adapter.adapterdownload.DownloadAdapter
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
-
+@Deprecated("Это класс устарел. Используйте composable функции")
 @AndroidEntryPoint
 class DownloadRepositoryActivity : AppCompatActivity() {
     val adapter by lazy { DownloadAdapter() }

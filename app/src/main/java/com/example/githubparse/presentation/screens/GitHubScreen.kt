@@ -19,7 +19,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.githubparse.checkerror.ResponseResult
 import com.example.githubparse.domain.usecase.Dialog
@@ -35,7 +35,8 @@ import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 
 
 @Composable
-fun GitHubScreen(navController: NavController, viewModel: ViewModelActivity) {
+fun GitHubScreen(navController: NavController) {
+    val viewModel:ViewModelActivity = hiltViewModel()
     GitHub(navController = navController, viewModel = viewModel)
 }
 
@@ -120,10 +121,6 @@ fun GitNameLazyColumn(
         is ResponseResult.Loading -> {
             CenteredLoadingIndicator()
             Toast.makeText(context, "Данные загружаются", Toast.LENGTH_LONG).show()
-        }
-
-        null -> {
-            Toast.makeText(context, "Данные отсутствуют", Toast.LENGTH_LONG).show()
         }
 
         is ResponseResult.Null -> Toast.makeText(context,"Введите имя репозитория", Toast.LENGTH_LONG).show()

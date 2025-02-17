@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,26 +19,25 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val vm: ViewModelActivity by viewModels()
         enableEdgeToEdge()
         setContent {
-            GitApp(viewModelActivity = vm)
+            GitApp()
         }
     }
 }
 
 @Composable
-fun GitApp(viewModelActivity: ViewModelActivity) {
+fun GitApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {
             SplashScreen(navController = navController)
         }
         composable("gitHubActivity") {
-            GitHubScreen(navController = navController, viewModel = viewModelActivity)
+            GitHubScreen(navController = navController)
         }
         composable("downloadGitActivity") {
-            DownloadRepositoryScreen(viewModel = viewModelActivity)
+            DownloadRepositoryScreen()
         }
     }
 }
