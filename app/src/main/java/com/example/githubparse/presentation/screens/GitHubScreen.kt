@@ -55,7 +55,7 @@ fun GitHub(
             modifier = modifier,
             context = context
         ) { name, fullName ->
-            Dialog().openDialog(context = context, name, fullName)
+            Dialog(viewModelActivity = viewModel).openDialog(context = context, name, fullName)
         }
 
         Button(

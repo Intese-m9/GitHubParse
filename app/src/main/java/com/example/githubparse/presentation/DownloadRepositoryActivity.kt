@@ -21,7 +21,7 @@ class DownloadRepositoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.rvDb.adapter = adapter
         binding.rvDataDb.adapter = adapterData
-        vm.getDownloadList(applicationContext)
+        vm.getDownloadListFromDB()
         /*vm.downloadList.observe(this) { list ->
             list.let {
                 adapter.setList(it)

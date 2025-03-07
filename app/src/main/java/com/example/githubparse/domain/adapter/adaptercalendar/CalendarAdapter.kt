@@ -2,10 +2,8 @@ package com.example.githubparse.domain.adapter.adaptercalendar
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubparse.R
 import com.example.githubparse.data.room.GitUser
 import com.example.githubparse.databinding.ItemListBinding
 import com.example.githubparse.domain.usecase.GetCurrentDate

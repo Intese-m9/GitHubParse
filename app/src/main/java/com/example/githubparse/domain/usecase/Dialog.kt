@@ -4,27 +4,21 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
-import androidx.room.Room
 import com.example.githubparse.R
-import com.example.githubparse.data.room.GitDao
-import com.example.githubparse.data.room.GitDatabase
 import com.example.githubparse.data.room.GitUser
+import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class Dialog {
+class Dialog @Inject constructor(private val viewModelActivity: ViewModelActivity) {
     private val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
     private val downloadGitBrowser by lazy { DownloadGitStorage() }//Use_Case загрузка
     private val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
-    private lateinit var gitDao: GitDao
     fun openDialog(context: Context, itemPositionName:String,itemPositionFullName:String ){
-        val db = Room.databaseBuilder(
-            context,
-            GitDatabase::class.java, "repository_database"
-        ).build()//создаем базу данных
-        gitDao = db.GitDao()//получили экземпляр бд
+
         val builder = MaterialAlertDialogBuilder(context)
         builder.setTitle(itemPositionName)
         builder.setIcon(R.drawable.ic_baseline_help_outline_24)
@@ -37,7 +31,7 @@ class Dialog {
             downloadGitBrowser.execute(context, itemPositionFullName)
             val data = dataGetString.getCurrentDate()
             CoroutineScope(Dispatchers.Default).launch {
-                gitDao.insertRepo(GitUser(0,itemPositionFullName,data))
+                viewModelActivity.insertGitUserInDataBase(GitUser(0, itemPositionFullName, data))
             }
         }
         val drawablePositive = ContextCompat.getDrawable(

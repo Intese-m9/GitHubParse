@@ -21,10 +21,6 @@ class DomainModel {
         return DownloadGitStorage()
     }
     @Provides
-    fun provideDialog(): Dialog {
-        return Dialog()
-    }
-    @Provides
     fun getCurrentDate(): GetCurrentDate{
         return GetCurrentDate()
     }

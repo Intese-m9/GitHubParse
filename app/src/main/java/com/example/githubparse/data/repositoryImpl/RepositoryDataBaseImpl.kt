@@ -1,20 +1,23 @@
 package com.example.githubparse.data.repositoryImpl
 
 import android.content.Context
-import androidx.room.Room
 import com.example.githubparse.data.repository.RepositoryDataBase
 import com.example.githubparse.data.room.GitDao
-import com.example.githubparse.data.room.GitDatabase
 import com.example.githubparse.data.room.GitUser
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class RepositoryDataBaseImpl @Inject constructor(): RepositoryDataBase {
-    private lateinit var gitDao: GitDao
-    override suspend fun executeDataBase(context: Context): List<GitUser> {
-        val db = Room.databaseBuilder(context, GitDatabase::class.java, "repository_database")
-            .build()//создаем базу данных
-        gitDao = db.GitDao()//получили экземпляр бд
+class RepositoryDataBaseImpl @Inject constructor(private val gitDao: GitDao) : RepositoryDataBase {
+    override suspend fun executeDataBase(): Flow<List<GitUser>> {
         return gitDao.getAllRepos()
+    }
+
+    override suspend fun addUser(user: GitUser) {
+        gitDao.insertRepo(repo = user)
+    }
+
+    override suspend fun deleteUser(user: String) {
+        gitDao.deleteCurrentUser(repo = user)
     }
 }
 

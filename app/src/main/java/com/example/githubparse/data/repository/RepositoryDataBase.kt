@@ -2,7 +2,10 @@ package com.example.githubparse.data.repository
 
 import android.content.Context
 import com.example.githubparse.data.room.GitUser
+import kotlinx.coroutines.flow.Flow
 
 interface RepositoryDataBase {
-   suspend fun executeDataBase(context:Context):List<GitUser>
+   suspend fun executeDataBase(): Flow<List<GitUser>>
+   suspend fun addUser(user:GitUser)
+   suspend fun deleteUser(user: String)
 }
