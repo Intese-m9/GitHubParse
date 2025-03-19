@@ -1,6 +1,5 @@
 package com.example.githubparse.data.repositoryImpl
 
-import android.content.Context
 import com.example.githubparse.data.repository.RepositoryDataBase
 import com.example.githubparse.data.room.GitDao
 import com.example.githubparse.data.room.GitUser

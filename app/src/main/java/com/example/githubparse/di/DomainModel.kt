@@ -1,6 +1,5 @@
 package com.example.githubparse.di
 
-import com.example.githubparse.domain.usecase.Dialog
 import com.example.githubparse.domain.usecase.DownloadGitStorage
 import com.example.githubparse.domain.usecase.GetCurrentDate
 import com.example.githubparse.domain.usecase.OpenGitBrowser

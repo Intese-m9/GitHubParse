@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @Composable
-fun GitApp() {
+fun GitApp(){
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "splash") {
         composable("splash") {

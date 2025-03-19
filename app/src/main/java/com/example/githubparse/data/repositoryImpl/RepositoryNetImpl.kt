@@ -7,8 +7,8 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryNetImpl @Inject constructor() : RepositoryNet {
-
     override suspend fun getGitList(userName: String): Response<GitHubList> {
-        return RetrofitHelper.api.getGitList(userName)
+        return RetrofitHelper.api.getGitList(userName = userName)
     }
+
 }

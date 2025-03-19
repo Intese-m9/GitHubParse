@@ -6,7 +6,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class GetListGitUseCase @Inject constructor(private val apiRepositoryNet: RepositoryNet) {
-    suspend fun getGitHubList(text:String): Response<GitHubList>{
-       return apiRepositoryNet.getGitList(text)
+  suspend fun getGitListUseCase(userName:String): Response<GitHubList>{
+       return apiRepositoryNet.getGitList(userName = userName)
     }
 }
