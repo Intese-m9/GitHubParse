@@ -105,9 +105,9 @@ fun GitNameLazyColumn(
             LazyColumn {
                 items(result.data ?: emptyList()) { item ->
                     Text(
-                        text = item.full_name,
+                        text = item.fullName,
                         modifier = modifier.clickable {
-                            onItemClick(item.name, item.full_name)
+                            onItemClick(item.name, item.fullName)
                         }
                     )
                 }

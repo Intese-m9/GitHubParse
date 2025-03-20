@@ -2,7 +2,7 @@ package com.example.githubparse.data.repositoryImpl
 
 import com.example.githubparse.data.api.RetrofitHelper
 import com.example.githubparse.data.repository.RepositoryNet
-import com.example.githubparse.domain.models.getlist.GitHubList
+import com.example.githubparse.data.models.getlist.GitHubList
 import retrofit2.Response
 import javax.inject.Inject
 

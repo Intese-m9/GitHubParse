@@ -1,4 +1,4 @@
-package com.example.githubparse.domain.models.callbackexample
+package com.example.githubparse.data.models.callbackexample
 
 data class CallBackListItem(
     val id:Int,

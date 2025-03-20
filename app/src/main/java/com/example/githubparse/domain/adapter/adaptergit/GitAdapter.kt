@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubparse.databinding.ItemListBinding
-import com.example.githubparse.domain.models.getlist.GitHubListItem
+import com.example.githubparse.data.models.getlist.GitHubListItem
 import javax.inject.Inject
 
 
@@ -24,7 +24,7 @@ class GitAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: GitViewHolder, position: Int) {
         with(holder.binding) {
-            user.text = listGit[position].full_name
+            user.text = listGit[position].fullName
             holder.itemView.setOnClickListener {
                 onItemClick(listGit[position])
             }

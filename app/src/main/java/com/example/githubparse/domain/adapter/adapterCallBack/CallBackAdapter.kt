@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubparse.databinding.ItemListBinding
-import com.example.githubparse.domain.models.callbackexample.CallBackListItem
+import com.example.githubparse.data.models.callbackexample.CallBackListItem
 
 class CallBackAdapter(
     private val listGitTestCallBack: MutableList<CallBackListItem>,

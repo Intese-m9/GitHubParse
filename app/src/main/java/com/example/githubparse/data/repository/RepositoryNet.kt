@@ -1,6 +1,6 @@
 package com.example.githubparse.data.repository
 
-import com.example.githubparse.domain.models.getlist.GitHubList
+import com.example.githubparse.data.models.getlist.GitHubList
 import retrofit2.Response
 
 interface RepositoryNet{

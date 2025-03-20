@@ -1,4 +1,4 @@
-package com.example.githubparse.domain.models.getlist
+package com.example.githubparse.data.models.getlist
 
 data class Owner(
     val avatar_url: String,

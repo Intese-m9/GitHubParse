@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.githubparse.checkerror.ResponseResult
 import com.example.githubparse.data.room.GitUser
-import com.example.githubparse.domain.models.getlist.GitHubList
+import com.example.githubparse.data.models.getlist.GitHubList
 import com.example.githubparse.domain.usecase.DeleteGitUserUseCase
 import com.example.githubparse.domain.usecase.GetCurrentDate
 import com.example.githubparse.domain.usecase.GetDataBaseGitUseCase

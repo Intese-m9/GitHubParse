@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubparse.databinding.ActivityCallbackBinding
 import com.example.githubparse.domain.adapter.adapterCallBack.CallBackAdapter
 import com.example.githubparse.domain.adapter.adapterCallBack.OnItemClickListener
-import com.example.githubparse.domain.models.callbackexample.CallBackListItem
+import com.example.githubparse.data.models.callbackexample.CallBackListItem
 
 class CallbackActivity : AppCompatActivity(),OnItemClickListener {
     private lateinit var binding: ActivityCallbackBinding

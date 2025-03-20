@@ -1,7 +1,7 @@
 package com.example.githubparse.domain.usecase
 
 import com.example.githubparse.data.repository.RepositoryNet
-import com.example.githubparse.domain.models.getlist.GitHubList
+import com.example.githubparse.data.models.getlist.GitHubList
 import retrofit2.Response
 import javax.inject.Inject
 
