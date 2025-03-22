@@ -5,11 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.githubparse.checkerror.ResponseResult
 import com.example.githubparse.data.room.GitUser
 import com.example.githubparse.data.models.getlist.GitHubList
-import com.example.githubparse.domain.usecase.DeleteGitUserUseCase
 import com.example.githubparse.domain.usecase.GetCurrentDate
-import com.example.githubparse.domain.usecase.GetDataBaseGitUseCase
 import com.example.githubparse.domain.usecase.GetListGitUseCase
-import com.example.githubparse.domain.usecase.PutDataBaseGitUser
+import com.example.githubparse.domain.usecase.GitManager
 import com.example.githubparse.domain.usecase.TaskExampleUseCase
 import com.example.githubparse.presentation.utils.BoundServiceUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,13 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ViewModelActivity @Inject constructor(
-    private val getListGitUseCase: GetListGitUseCase,
-    private val getDataBaseGitUseCase: GetDataBaseGitUseCase,
     private val getCurrentDate: GetCurrentDate,
-    private val putDataBaseGitUser: PutDataBaseGitUser,
-    private val deleteGitUserUseCase: DeleteGitUserUseCase,
     private val taskExampleUseCase: TaskExampleUseCase,
-    private val boundService:BoundServiceUtils
+    private val boundService: BoundServiceUtils,
+    private val gitManager: GitManager
 ) : ViewModel() {
     // Объявляем MutableLiveData
     private val _gitHubList: MutableStateFlow<ResponseResult<GitHubList>> =
@@ -44,13 +39,14 @@ class ViewModelActivity @Inject constructor(
     val calendarData: StateFlow<String> get() = _calendarData
     val itemInt: StateFlow<Int> get() = _itemIdInt
     val taskList: StateFlow<List<String>> = _taskList
+
     init {
         getDownloadListFromDB()
     }
 
-    fun loadGitHubList(name: String) {
+    fun loadGitHubList(userName: String) {
         viewModelScope.launch {
-            val response = getListGitUseCase.getGitListUseCase(userName = name)
+            val response = gitManager.getListGit(name = userName)
             try {
                 if (response.isSuccessful && response.body() != null) {
                     _gitHubList.value = ResponseResult.Success(data = response.body()!!)
@@ -66,7 +62,7 @@ class ViewModelActivity @Inject constructor(
     fun getDownloadListFromDB() {
         viewModelScope.launch(Dispatchers.IO) {
             println("Запуск в потоке: ${Thread.currentThread().name}")
-            getDataBaseGitUseCase.getDownloadListGit().collect { userList ->
+            gitManager.getDownloadListGit().collect { userList ->
                 _downloadList.value = userList
             }
         }
@@ -74,7 +70,7 @@ class ViewModelActivity @Inject constructor(
 
     fun insertGitUserInDataBase(user: GitUser) {
         viewModelScope.launch(Dispatchers.IO) {
-            putDataBaseGitUser.insertGitUser(user = user)
+            gitManager.insertGitUser(user = user)
         }
     }
 
@@ -86,7 +82,7 @@ class ViewModelActivity @Inject constructor(
 
     fun deleteUserInDataBase(user: GitUser) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteGitUserUseCase.deleteUser(user.repo)
+            gitManager.deleteUser(user)
         }
     }
 
@@ -97,19 +93,19 @@ class ViewModelActivity @Inject constructor(
         }
     }
 
-    fun bindService(){
+    fun bindService() {
         viewModelScope.launch {
             boundService.bindService()
         }
     }
 
-    fun unbindService(){
+    fun unbindService() {
         viewModelScope.launch {
             boundService.unbindService()
         }
     }
 
-    fun performActionFromBoundService(){
+    fun performActionFromBoundService() {
         viewModelScope.launch(Dispatchers.IO) {
             boundService.performAction { item ->
                 _itemIdInt.value = item
