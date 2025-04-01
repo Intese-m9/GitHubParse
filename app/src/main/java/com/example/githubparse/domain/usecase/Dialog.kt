@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import com.example.githubparse.R
-import com.example.githubparse.data.room.GitUser
+import com.example.githubparse.data.room.GitUserDBO
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +31,7 @@ class Dialog @Inject constructor(private val viewModelActivity: ViewModelActivit
             downloadGitBrowser.execute(context, itemPositionFullName)
             val data = dataGetString.getCurrentDate()
             CoroutineScope(Dispatchers.Default).launch {
-                viewModelActivity.insertGitUserInDataBase(GitUser(0, itemPositionFullName, data))
+                viewModelActivity.insertGitUserInDataBase(GitUserDBO(0, itemPositionFullName, data))
             }
         }
         val drawablePositive = ContextCompat.getDrawable(

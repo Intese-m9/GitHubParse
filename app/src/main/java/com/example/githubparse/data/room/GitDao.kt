@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GitDao {
     @Insert
-    suspend fun insertRepo(repo: GitUser)
+    suspend fun insertRepo(repo: GitUserDBO)
     @Query("SELECT * FROM repository_table")
-    fun getAllRepos(): Flow<List<GitUser>>
+    fun getAllRepos(): Flow<List<GitUserDBO>>
     @Query("DELETE FROM repository_table WHERE repo = :repo")
     fun deleteCurrentUser(repo:String)
 }

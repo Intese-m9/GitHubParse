@@ -2,7 +2,7 @@ package com.example.githubparse.data.models.getlist
 
 import com.google.gson.annotations.SerializedName
 
-data class GitHubListItem(
+data class GitHubListItemDTO(
 
     @SerializedName("allow_forking")
     val allowForking: Boolean,
@@ -173,7 +173,7 @@ data class GitHubListItem(
     val openIssuesCount: Int,
 
     @SerializedName("owner")
-    val owner: Owner,
+    val owner: OwnerDTO,
 
     @SerializedName("private")
     val private: Boolean,

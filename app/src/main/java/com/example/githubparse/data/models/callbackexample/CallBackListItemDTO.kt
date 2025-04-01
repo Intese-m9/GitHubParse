@@ -1,6 +1,6 @@
 package com.example.githubparse.data.models.callbackexample
 
-data class CallBackListItem(
+data class CallBackListItemDTO(
     val id:Int,
     val name:String
 )

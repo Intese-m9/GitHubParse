@@ -1,6 +1,6 @@
 package com.example.githubparse.data.models.getlist
 
-data class Owner(
+data class OwnerDTO(
     val avatar_url: String,
     val events_url: String,
     val followers_url: String,

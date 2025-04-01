@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubparse.databinding.ActivityCallbackBinding
 import com.example.githubparse.domain.adapter.adapterCallBack.CallBackAdapter
 import com.example.githubparse.domain.adapter.adapterCallBack.OnItemClickListener
-import com.example.githubparse.data.models.callbackexample.CallBackListItem
+import com.example.githubparse.data.models.callbackexample.CallBackListItemDTO
 
 class CallbackActivity : AppCompatActivity(),OnItemClickListener {
     private lateinit var binding: ActivityCallbackBinding
@@ -16,16 +16,16 @@ class CallbackActivity : AppCompatActivity(),OnItemClickListener {
         binding = ActivityCallbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val itemsList = mutableListOf(
-            CallBackListItem(1,"Test1"),
-            CallBackListItem(2,"Test2"),
-            CallBackListItem(3,"Test3")
+            CallBackListItemDTO(1,"Test1"),
+            CallBackListItemDTO(2,"Test2"),
+            CallBackListItemDTO(3,"Test3")
         )
         val adapterCallBack = CallBackAdapter(itemsList,this)
         binding.callbackRv.layoutManager = LinearLayoutManager(this)
         binding.callbackRv.adapter = adapterCallBack
     }
 
-    override fun onclick(item: CallBackListItem) {
+    override fun onclick(item: CallBackListItemDTO) {
         Toast.makeText(this, item.name,Toast.LENGTH_SHORT).show()
     }
 
