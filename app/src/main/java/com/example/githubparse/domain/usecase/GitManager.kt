@@ -1,5 +1,6 @@
 package com.example.githubparse.domain.usecase
 
+import com.example.githubparse.checkerror.ResponseResult
 import com.example.githubparse.data.models.getlist.GitHubListDTO
 import com.example.githubparse.data.room.GitUserDBO
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +14,7 @@ class GitManager @Inject constructor(
     private val putDataBaseGitUser: PutDataBaseGitUser,
     private val deleteGitUserUseCase: DeleteGitUserUseCase,
     ){
-    suspend fun getListGit(name: String): Response<GitHubListDTO> {
+    suspend fun getListGit(name: String): ResponseResult<GitHubListDTO> {
        return getListGitUseCase.getGitListUseCase(userName = name)
     }
 

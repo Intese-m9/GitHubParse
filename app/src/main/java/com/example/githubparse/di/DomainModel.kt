@@ -10,7 +10,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class DomainModel {
+object DomainModel {
     @Provides
     fun provideGitBrowser(): OpenGitBrowser {
         return OpenGitBrowser()

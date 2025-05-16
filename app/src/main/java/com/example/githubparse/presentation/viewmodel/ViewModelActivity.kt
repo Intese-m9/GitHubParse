@@ -46,7 +46,10 @@ class ViewModelActivity @Inject constructor(
 
     fun loadGitHubList(userName: String) {
         viewModelScope.launch {
-            val response = gitManager.getListGit(name = userName)
+            gitManager.getListGit(name = userName).let {
+                _gitHubList.value = it
+            }
+         /*   val response = gitManager.getListGit(name = userName)
             try {
                 if (response.isSuccessful && response.body() != null) {
                     _gitHubList.value = ResponseResult.Success(data = response.body()!!)
@@ -55,7 +58,7 @@ class ViewModelActivity @Inject constructor(
                 }
             } catch (e: Exception) {
                 _gitHubList.value = ResponseResult.Error(message = "${e.message}")
-            }
+            }*/
         }
     }
 
