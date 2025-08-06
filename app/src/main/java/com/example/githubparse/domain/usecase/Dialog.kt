@@ -5,13 +5,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import com.example.githubparse.R
-import com.example.githubparse.data.room.GitUserDBO
+import com.example.githubparse.domain.models.GitHubItem
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.core.graphics.toColorInt
+import androidx.core.graphics.drawable.toDrawable
 
 class Dialog @Inject constructor(private val viewModelActivity: ViewModelActivity) {
     private val openGitBrowser by lazy { OpenGitBrowser() }//Use_Case открытия странички в интернете
@@ -23,15 +25,13 @@ class Dialog @Inject constructor(private val viewModelActivity: ViewModelActivit
         builder.setTitle(itemPositionName)
         builder.setIcon(R.drawable.ic_baseline_help_outline_24)
         builder.setMessage("Вы можете скачать или открыть данный файл в браузере")
-        builder.background = ColorDrawable(
-            Color.parseColor("#FEFEFA")
-        )
+        builder.background = "#FEFEFA".toColorInt().toDrawable()
         builder.setPositiveButton("Download"){ _, _ ->
             //действие по клику
             downloadGitBrowser.execute(context, itemPositionFullName)
             val data = dataGetString.getCurrentDate()
             CoroutineScope(Dispatchers.Default).launch {
-                viewModelActivity.insertGitUserInDataBase(GitUserDBO(0, itemPositionFullName, data))
+                viewModelActivity.insertGitUserInDataBase(GitHubItem(0, itemPositionFullName, data))
             }
         }
         val drawablePositive = ContextCompat.getDrawable(

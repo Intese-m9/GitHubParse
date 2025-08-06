@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubparse.databinding.ItemListBinding
-import com.example.githubparse.data.models.getlist.GitHubListItemDTO
+import com.example.githubparse.domain.models.GitHubItem
 import javax.inject.Inject
 
 
 class GitAdapter @Inject constructor(
-    private val onItemClick:(GitHubListItemDTO) -> Unit
+    private val onItemClick:(GitHubItem) -> Unit
 ) : RecyclerView.Adapter<GitAdapter.GitViewHolder>() {
-    private var listGit = listOf<GitHubListItemDTO>()
+    private var listGit = listOf<GitHubItem>()
 
     class GitViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -35,7 +35,7 @@ class GitAdapter @Inject constructor(
         }
 
         @SuppressLint("NotifyDataSetChanged")
-        fun setList(list: List<GitHubListItemDTO>) {
+        fun setList(list: List<GitHubItem>) {
             listGit = list
             notifyDataSetChanged()
         }

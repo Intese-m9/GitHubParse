@@ -4,35 +4,39 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubparse.data.room.GitUserDBO
+import com.example.githubparse.data.room.GitUserEntity
 import com.example.githubparse.databinding.ItemListBinding
 import com.example.githubparse.domain.usecase.GetCurrentDate
 
-class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
-    var dataList = emptyList<GitUserDBO>()
+class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
+    var dataList = emptyList<GitUserEntity>()
     private val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
-    class CalendarViewHolder(val binding:ItemListBinding): RecyclerView.ViewHolder(binding.root)
+
+    class CalendarViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemListBinding.inflate(inflater)
         return CalendarViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
-        with(holder.binding){
+        with(holder.binding) {
             val currentDate = dataGetString.getCurrentDate()
             val currentPosition = dataList[position].data
             println(currentPosition)
-            if (currentDate == currentPosition){
+            if (currentDate == currentPosition) {
                 holder.binding.user.text = dataList[position].repo
             }
         }
     }
+
     override fun getItemCount(): Int {
         return dataList.size
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<GitUserDBO>){
+    fun setList(list: List<GitUserEntity>) {
         dataList = list
         notifyDataSetChanged()
     }

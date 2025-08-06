@@ -2,8 +2,8 @@ package com.example.githubparse.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.githubparse.data.repository.RepositoryDataBase
-import com.example.githubparse.data.repository.RepositoryNet
+import com.example.githubparse.domain.repository.RepositoryDataBase
+import com.example.githubparse.domain.repository.RepositoryNet
 import com.example.githubparse.data.repositoryImpl.RepositoryDataBaseImpl
 import com.example.githubparse.data.repositoryImpl.RepositoryNetImpl
 import com.example.githubparse.data.room.GitDao

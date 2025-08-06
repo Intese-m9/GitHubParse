@@ -2,18 +2,15 @@ package com.example.githubparse.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.githubparse.checkerror.ResponseResult
-import com.example.githubparse.data.room.GitUserDBO
-import com.example.githubparse.data.models.getlist.GitHubListDTO
+import com.example.githubparse.domain.models.GitHubItem
 import com.example.githubparse.domain.usecase.GetCurrentDate
 import com.example.githubparse.domain.usecase.GitManager
 import com.example.githubparse.domain.usecase.TaskExampleUseCase
-import com.example.githubparse.presentation.utils.BoundServiceUtils
+import com.example.githubparse.presentation.utils.checkerror.ResponseResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,21 +18,20 @@ import javax.inject.Inject
 class ViewModelActivity @Inject constructor(
     private val getCurrentDate: GetCurrentDate,
     private val taskExampleUseCase: TaskExampleUseCase,
-    private val boundService: BoundServiceUtils,
     private val gitManager: GitManager
 ) : ViewModel() {
     // Объявляем MutableLiveData
-    private val _gitHubList: MutableStateFlow<ResponseResult<GitHubListDTO>> =
-        MutableStateFlow(ResponseResult.Null())
-    private val _downloadList: MutableStateFlow<List<GitUserDBO>> =
+    private val _gitHubList: MutableStateFlow<ResponseResult<List<GitHubItem>>?> = MutableStateFlow(
+        null)
+    private val _downloadList: MutableStateFlow<List<GitHubItem>> =
         MutableStateFlow(emptyList())//переменная списка
     private val _calendarData: MutableStateFlow<String> = MutableStateFlow("")//переменная даты
     private val _itemIdInt: MutableStateFlow<Int> = MutableStateFlow(0)
     private val _taskList: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
 
     // Публичный доступ для просмотра
-    val gitHubList: StateFlow<ResponseResult<GitHubListDTO>> = _gitHubList
-    val downloadList: StateFlow<List<GitUserDBO>> get() = _downloadList
+    val gitHubList: StateFlow<ResponseResult<List<GitHubItem>>?> get() = _gitHubList
+    val downloadList: StateFlow<List<GitHubItem>> get() = _downloadList
     val calendarData: StateFlow<String> get() = _calendarData
     val itemInt: StateFlow<Int> get() = _itemIdInt
     val taskList: StateFlow<List<String>> = _taskList
@@ -45,20 +41,11 @@ class ViewModelActivity @Inject constructor(
     }
 
     fun loadGitHubList(userName: String) {
-        viewModelScope.launch {
-            gitManager.getListGit(name = userName).let {
-                _gitHubList.value = it
-            }
-         /*   val response = gitManager.getListGit(name = userName)
-            try {
-                if (response.isSuccessful && response.body() != null) {
-                    _gitHubList.value = ResponseResult.Success(data = response.body()!!)
-                } else {
-                    _gitHubList.value = ResponseResult.Error(message = response.message())
+        viewModelScope.launch(Dispatchers.IO) {
+            gitManager.getListGit(name = userName)
+                .collect { result ->
+                    _gitHubList.value = result
                 }
-            } catch (e: Exception) {
-                _gitHubList.value = ResponseResult.Error(message = "${e.message}")
-            }*/
         }
     }
 
@@ -71,7 +58,7 @@ class ViewModelActivity @Inject constructor(
         }
     }
 
-    fun insertGitUserInDataBase(user: GitUserDBO) {
+    fun insertGitUserInDataBase(user: GitHubItem) {
         viewModelScope.launch(Dispatchers.IO) {
             gitManager.insertGitUser(user = user)
         }
@@ -83,7 +70,7 @@ class ViewModelActivity @Inject constructor(
         }
     }
 
-    fun deleteUserInDataBase(user: GitUserDBO) {
+    fun deleteUserInDataBase(user: GitHubItem) {
         viewModelScope.launch(Dispatchers.IO) {
             gitManager.deleteUser(user)
         }
@@ -93,26 +80,6 @@ class ViewModelActivity @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             taskExampleUseCase.addItemInList(item = name)
             _taskList.value = taskExampleUseCase.getList()
-        }
-    }
-
-    fun bindService() {
-        viewModelScope.launch {
-            boundService.bindService()
-        }
-    }
-
-    fun unbindService() {
-        viewModelScope.launch {
-            boundService.unbindService()
-        }
-    }
-
-    fun performActionFromBoundService() {
-        viewModelScope.launch(Dispatchers.IO) {
-            boundService.performAction { item ->
-                _itemIdInt.value = item
-            }
         }
     }
 }

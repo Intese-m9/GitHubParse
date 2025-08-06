@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,14 +28,7 @@ fun DownloadRepositoryScreen(
     val viewModel: ViewModelActivity = hiltViewModel()
     viewModel.getDownloadListFromDB()
     viewModel.getCalendarData()
-    viewModel.performActionFromBoundService()
 
-    DisposableEffect(key1 = Unit) {
-        viewModel.bindService()
-        onDispose {
-            viewModel.unbindService()
-        }
-    }
     Column(
         modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -63,7 +55,7 @@ fun AllListDownloads(viewModel: ViewModelActivity) {
                 Text(
                     modifier = Modifier.clickable {
                         viewModel.deleteUserInDataBase(item)
-                    }, text = item.repo
+                    }, text = item.fullName
                 )
             }
         }
@@ -89,8 +81,8 @@ fun ListInCurrentDate(viewModel: ViewModelActivity) {
         Spacer(Modifier.size(20.dp))
         LazyColumn {
             items(allListRepo.value) { item ->
-                if (item.data == currentDate.value) {
-                    Text(text = item.repo)
+                if (item.name == currentDate.value) {
+                    Text(text = item.fullName)
                 }
             }
         }
@@ -98,7 +90,7 @@ fun ListInCurrentDate(viewModel: ViewModelActivity) {
 }
 
 @Composable
-fun StateProgressInBoundService(viewModel: ViewModelActivity){
+fun StateProgressInBoundService(viewModel: ViewModelActivity) {
     val sateId = viewModel.itemInt.collectAsState()
     Text(text = "${sateId.value}")
 }

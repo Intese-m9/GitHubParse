@@ -1,19 +1,18 @@
 package com.example.githubparse.domain.adapter.adapterdownload
 
 import android.annotation.SuppressLint
-import android.opengl.GLUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubparse.data.room.GitUserDBO
+import com.example.githubparse.data.room.GitUserEntity
 import com.example.githubparse.databinding.ItemListBinding
 
 class DownloadAdapter: RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>(), View.OnClickListener {
-    var downloadList = emptyList<GitUserDBO>()
+    var downloadList = emptyList<GitUserEntity>()
 
     class DownloadViewHolder(val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(gitUser:GitUserDBO){
+        fun bind(gitUser:GitUserEntity){
             binding.user.text = gitUser.repo
         }
     }
@@ -33,7 +32,7 @@ class DownloadAdapter: RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<GitUserDBO>){
+    fun setList(list: List<GitUserEntity>){
         downloadList = list
         notifyDataSetChanged()
     }

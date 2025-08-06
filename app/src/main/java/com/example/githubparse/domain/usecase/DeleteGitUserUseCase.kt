@@ -1,6 +1,6 @@
 package com.example.githubparse.domain.usecase
 
-import com.example.githubparse.data.repository.RepositoryDataBase
+import com.example.githubparse.domain.repository.RepositoryDataBase
 import javax.inject.Inject
 
 class DeleteGitUserUseCase @Inject constructor(private val apiRepositoryDataBase: RepositoryDataBase){

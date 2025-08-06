@@ -29,14 +29,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.githubparse.checkerror.ResponseResult
 import com.example.githubparse.domain.usecase.Dialog
 import com.example.githubparse.presentation.viewmodel.ViewModelActivity
+import com.example.githubparse.presentation.utils.checkerror.ResponseResult
 
 
 @Composable
 fun GitHubScreen(navController: NavController) {
-    val viewModel:ViewModelActivity = hiltViewModel()
+    val viewModel: ViewModelActivity = hiltViewModel()
     GitHub(navController = navController, viewModel = viewModel)
 }
 
@@ -52,7 +52,6 @@ fun GitHub(
         ToolbarComponent(viewModel = viewModel)
         GitNameLazyColumn(
             viewModel = viewModel,
-            modifier = modifier,
             context = context
         ) { name, fullName ->
             Dialog(viewModelActivity = viewModel).openDialog(context = context, name, fullName)
@@ -95,27 +94,29 @@ fun ToolbarComponent(viewModel: ViewModelActivity, modifier: Modifier = Modifier
 @Composable
 fun GitNameLazyColumn(
     viewModel: ViewModelActivity,
-    modifier: Modifier = Modifier,
     context: Context,
     onItemClick: (String, String) -> Unit
 ) {
-    val responseResult = viewModel.gitHubList.collectAsState()
-    when (val result = responseResult.value) {
+    val state by viewModel.gitHubList.collectAsState()
+
+    when (val result = state) {
         is ResponseResult.Success -> {
+            val repoList = result.data
             LazyColumn {
-                items(result.data ?: emptyList()) { item ->
+                items(repoList ?: emptyList()) { item ->
                     Text(
                         text = item.fullName,
-                        modifier = modifier.clickable {
-                            onItemClick(item.name, item.fullName)
-                        }
+                        modifier = Modifier
+                            .clickable {
+                                onItemClick(item.name, item.fullName)
+                            }
                     )
                 }
             }
         }
 
         is ResponseResult.Error -> {
-            Toast.makeText(context, "Ошибка: ${result.message}", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Ошибка: $result", Toast.LENGTH_LONG).show()
         }
 
         is ResponseResult.Loading -> {
@@ -123,9 +124,8 @@ fun GitNameLazyColumn(
             Toast.makeText(context, "Данные загружаются", Toast.LENGTH_LONG).show()
         }
 
-        is ResponseResult.Null -> Toast.makeText(context,"Введите имя репозитория", Toast.LENGTH_LONG).show()
+        null -> {}
     }
-
 }
 
 @Composable

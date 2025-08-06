@@ -1,7 +1,7 @@
 package com.example.githubparse.domain.adapter.adapterCallBack
 
-import com.example.githubparse.data.models.callbackexample.CallBackListItemDTO
+import com.example.githubparse.data.models.callbackexample.CallBackListItem
 
 interface OnItemClickListener {
-    fun onclick(item: CallBackListItemDTO)
+    fun onclick(item: CallBackListItem)
 }

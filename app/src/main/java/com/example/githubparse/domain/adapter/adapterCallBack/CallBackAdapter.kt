@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubparse.databinding.ItemListBinding
-import com.example.githubparse.data.models.callbackexample.CallBackListItemDTO
+import com.example.githubparse.data.models.callbackexample.CallBackListItem
 
 class CallBackAdapter(
-    private val listGitTestCallBack: MutableList<CallBackListItemDTO>,
+    private val listGitTestCallBack: MutableList<CallBackListItem>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<CallBackAdapter.CallBackViewHolder>() {
     class CallBackViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
