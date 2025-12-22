@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubparse.data.room.GitUserEntity
+import com.example.githubparse.data.room.GitUserDownloadEntity
 import com.example.githubparse.databinding.ItemListBinding
 
 class DownloadAdapter: RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>(), View.OnClickListener {
-    var downloadList = emptyList<GitUserEntity>()
+    var downloadList = emptyList<GitUserDownloadEntity>()
 
     class DownloadViewHolder(val binding: ItemListBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(gitUser:GitUserEntity){
+        fun bind(gitUser:GitUserDownloadEntity){
             binding.user.text = gitUser.repo
         }
     }
@@ -32,7 +32,7 @@ class DownloadAdapter: RecyclerView.Adapter<DownloadAdapter.DownloadViewHolder>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<GitUserEntity>){
+    fun setList(list: List<GitUserDownloadEntity>){
         downloadList = list
         notifyDataSetChanged()
     }

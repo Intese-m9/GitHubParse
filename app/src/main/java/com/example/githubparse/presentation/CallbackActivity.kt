@@ -8,7 +8,10 @@ import com.example.githubparse.databinding.ActivityCallbackBinding
 import com.example.githubparse.domain.adapter.adapterCallBack.CallBackAdapter
 import com.example.githubparse.domain.adapter.adapterCallBack.OnItemClickListener
 import com.example.githubparse.data.models.callbackexample.CallBackListItem
+import dagger.hilt.android.scopes.ActivityScoped
 
+
+@ActivityScoped
 class CallbackActivity : AppCompatActivity(),OnItemClickListener {
     private lateinit var binding: ActivityCallbackBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,5 @@ class CallbackActivity : AppCompatActivity(),OnItemClickListener {
     override fun onclick(item: CallBackListItem) {
         Toast.makeText(this, item.name,Toast.LENGTH_SHORT).show()
     }
-
-
 }
 

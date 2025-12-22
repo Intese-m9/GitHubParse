@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "repository_table")
-data class GitUserEntity(
+data class GitUserDownloadEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "repository_id")
     var id: Int,

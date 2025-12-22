@@ -2,11 +2,11 @@ package com.example.githubparse.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.githubparse.domain.repository.RepositoryDataBase
+import com.example.githubparse.domain.repository.RepositoryDataBaseDownloadList
 import com.example.githubparse.domain.repository.RepositoryNet
-import com.example.githubparse.data.repositoryImpl.RepositoryDataBaseImpl
+import com.example.githubparse.data.repositoryImpl.RepositoryDataBaseDownloadListImpl
 import com.example.githubparse.data.repositoryImpl.RepositoryNetImpl
-import com.example.githubparse.data.room.GitDao
+import com.example.githubparse.data.room.GitDownloadDao
 import com.example.githubparse.data.room.GitDatabase
 import dagger.Module
 import dagger.Provides
@@ -32,13 +32,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideDataBaseRepo(gitDao: GitDao):RepositoryDataBase{
-        return RepositoryDataBaseImpl(gitDao)
+    fun provideDataBaseRepo(gitDao: GitDownloadDao):RepositoryDataBaseDownloadList{
+        return RepositoryDataBaseDownloadListImpl(gitDao)
     }
 
     @Provides
-    fun provideGitDao(gitDatabase: GitDatabase): GitDao {
-        return gitDatabase.GitDao() // Получение GitDao из базы данных
+    fun provideGitDao(gitDatabase: GitDatabase): GitDownloadDao {
+        return gitDatabase.GitDownloadDao() // Получение GitDao из базы данных
     }
 }
 

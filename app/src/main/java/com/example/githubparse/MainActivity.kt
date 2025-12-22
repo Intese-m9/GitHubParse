@@ -11,10 +11,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.githubparse.presentation.screens.DownloadRepositoryScreen
 import com.example.githubparse.presentation.screens.GitHubScreen
 import com.example.githubparse.presentation.screens.SplashScreen
+import com.example.githubparse.presentation.viewmodel.ViewModelActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

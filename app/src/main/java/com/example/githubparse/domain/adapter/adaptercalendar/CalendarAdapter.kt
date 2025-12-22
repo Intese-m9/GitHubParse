@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubparse.data.room.GitUserEntity
+import com.example.githubparse.data.room.GitUserDownloadEntity
 import com.example.githubparse.databinding.ItemListBinding
 import com.example.githubparse.domain.usecase.GetCurrentDate
 
 class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>() {
-    var dataList = emptyList<GitUserEntity>()
+    var dataList = emptyList<GitUserDownloadEntity>()
     private val dataGetString by lazy { GetCurrentDate() }//Use_case получение даты
 
     class CalendarViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
@@ -36,7 +36,7 @@ class CalendarAdapter : RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder>
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(list: List<GitUserEntity>) {
+    fun setList(list: List<GitUserDownloadEntity>) {
         dataList = list
         notifyDataSetChanged()
     }
