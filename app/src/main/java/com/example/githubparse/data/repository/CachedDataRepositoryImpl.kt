@@ -19,10 +19,6 @@ class CachedDataRepositoryImpl @Inject constructor(
                 .collect { cashedRepos ->
                     emit(ResponseResult.Success(cashedRepos))
                 }
-
         }
-
-
     }
-
 }

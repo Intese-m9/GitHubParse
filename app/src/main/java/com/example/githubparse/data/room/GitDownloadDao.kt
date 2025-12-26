@@ -23,5 +23,5 @@ interface GitListDao {
     suspend fun insertRepo(repo: GitHubListEntity)
 
     @Query("SELECT * FROM github_list_table")
-    suspend fun getCurrentListRepo(): Flow<List<GitHubListEntity>>
+    fun getCurrentListRepo(): Flow<List<GitHubListEntity>>
 }
